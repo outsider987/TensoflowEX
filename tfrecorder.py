@@ -3,9 +3,7 @@ import os
 import cv2
 import numpy as np
  
-cwd = os.getcwd()
-root = cwd+"\\tensorflow\\face_data"
-file_dir = cwd
+
 # TFwriter = tf.python_io.TFRecordWriter("\\faceTF.tfrecords")
 def get_file(file_dir):
     images= []
@@ -38,7 +36,14 @@ def get_file(file_dir):
 
 def main ():
     
-    get_file(root)
+    cwd = os.getcwd()
+    root = cwd+"\\TensoflowEX\\face_data"
+    file_dir = cwd
+
+    
+    # 取回所有檔案路徑
+    images, labels = get_file(root)
+    test = images
     
 
 if __name__ == '__main__':
