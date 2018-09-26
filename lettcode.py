@@ -8,15 +8,11 @@ def main(num,target):
     for a in num:
         v=a
         b=0
+        if map[target - v] >= 0:
+            map[v] = b
+        else:
+           map[v] = b
 
-    if(map[target-v] >= 0)
-    {
-        map[v] = b
-    }
-    else
-    {
-       map[v] = b
-    }
 
 
 
