@@ -23,9 +23,9 @@ def read_and_decode(fileNames, batch_size):
     img_features = tf.parse_single_example(
             serialized_example,
             features={ 'Label'    : tf.FixedLenFeature([], tf.int64),
-                       'gril_raw': tf.FixedLenFeature([], tf.string), })
+                       'image_raw': tf.FixedLenFeature([], tf.string), })
 
-    image = tf.decode_raw(img_features['gril_raw'], tf.uint8)
+    image = tf.decode_raw(img_features['image_raw'], tf.uint8)
     image = tf.reshape(image, [42, 42])
     
     label = tf.cast(img_features['Label'], tf.int64)
