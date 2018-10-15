@@ -37,6 +37,7 @@ def read_and_decode(fileNames, batch_size):
                                  batch_size=batch_size,
                                  capacity=10000 + 3 * batch_size,
                                  min_after_dequeue=1000)
+                                 
 
     return image_batch, label_batch
 
