@@ -81,7 +81,7 @@ def convert_to_TFRecord(images, labels, filename):
 def main ():
     
     cwd = os.getcwd()
-    root = cwd+"\\TensoflowEX\\face_data"
+    root = cwd+"\\face_data"
     file_dir = cwd
 
     
