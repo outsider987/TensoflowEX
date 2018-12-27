@@ -86,3 +86,25 @@ def inference(images,batch_size,n_classes):
                 softmax_linear = tf.add(tf.matmul(local4,weights),biases,name="softmax_linear")
         return softmax_linear
 
+def losses(logits,labels):
+        with tf.variable_scope("loss") as scope:
+                cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits\
+                                (logits=logits,labels=labels,name="xentropy_per_example")
+                loss = tf.reduce_mean(cross_entropy,name="loss")
+                tf.summary.scalar(scope.name+"/loss",loss)
+        return loss
+
+def trainning(loss,learning_rate):
+        with tf.name_scope("optimizer"):
+                optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+                global_step = tf.Variable(0,name="global_step",trainable=False)
+                train_op = optimizer.minimizer(loss,global_step=global_step)
+        return train_op
+
+def evaluation(logits,labels):
+        with tf.variable_scope("accuracy") as scope:
+                correct = tf.nn.in_top_k(logits,labels,1)
+                correct = tf.cast(correct,tf.float16)
+                accuracy = tf.reduce_mean(correct)
+                tf.summary.scalar(scope.name+"/accuracy",accuracy)
+        return accuracy

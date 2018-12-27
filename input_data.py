@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 
 
+
 def get_file(filepath):
     # the each image
     images = []
@@ -51,6 +52,9 @@ def get_batchsize(imagelist, label_list,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY
 
     label_batch = tf.reshape(label_batch,[BATCH_SIZE])
     return image_batch,label_batch
+
+
+
 
 def main():
     IMG_HEIGHT = 208

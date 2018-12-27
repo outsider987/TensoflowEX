@@ -9,7 +9,7 @@ def getfile(Path):
     images = []
     # the each folder
     subfolders = []
-    
+       
     for dirpath,dirname,filename in os.walk(Path):
         for name in filename:
             images.append(os.path.join(dirpath,name))
