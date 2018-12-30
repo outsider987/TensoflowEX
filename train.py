@@ -28,6 +28,5 @@ def run_training():
 
     summary_op = tf.summary.merge_all()
     sess = tf.Session()
-    train_writer = tf.summary.FileWriter(datapa
-    th,sess.graph)
+    train_writer = tf.summary.FileWriter(datapath,sess.graph)
     saver = tf.train.start_queue_runners(sess=sess)
