@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np 
 import matplotlib as plt
 import input_data
+import model
 import os
 
 N_CLASSES = 2
@@ -20,4 +21,13 @@ def run_training():
     imagelist,labelist =input_data.get_file(datapath)
     image_batch,label_batch = input_data.get_batchsize(imagelist,labelist,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY)
 
+    train_logits =model.inference(image_batch,BATCH_SIZE ,N_CLASSES )
+    train_loss = model.losses(train_logits,label_batch)
+    train_op = model.trainning(train_loss,learning_rate)
+    train_acc = model.evaluation(train_logits,label_batch)
 
+    summary_op = tf.summary.merge_all()
+    sess = tf.Session()
+    train_writer = tf.summary.FileWriter(datapa
+    th,sess.graph)
+    saver = tf.train.start_queue_runners(sess=sess)
