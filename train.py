@@ -30,3 +30,29 @@ def run_training():
     sess = tf.Session()
     train_writer = tf.summary.FileWriter(datapath,sess.graph)
     saver = tf.train.start_queue_runners(sess=sess)
+
+    sess.run(tf.global_variables_initializer())
+    coord =tf.train.Coordinator()
+    Threads = tf.train.start_queue_runners(sess=sess,coord=coord)
+
+    try:
+        for step in np.arange(MAX_STEP)
+            if coord.should_stop() :
+                break
+            _,tra_loss,tra_acc =sess.run([train_op,train_loss,train_acc]) 
+
+            if step % 50 == 0:
+                print("Step %d, train_loss = %.2f,train accuarcy = %.2f%%" %(step,tra_loss,tra_acc))
+
+            if step % 2000 == 0 or (step + 1) == MAX_STEP:
+                checkpoint_path = os.path.join(datapath,"model.ckpt")
+                saver.save(sess,checkpoint_path,globals_step=step)
+
+    except tf.errors.OutOfRangeError:
+        print("Done Trainng -- epoch limit reached")
+    finally:
+        coord.request_stop()
+    
+
+    coord.join(Threads)
+    sess.close()
