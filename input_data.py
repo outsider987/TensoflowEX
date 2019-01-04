@@ -1,8 +1,8 @@
 import numpy as np 
 import tensorflow as tf 
 import os
-# import importlib as plt
-import matplotlib.pyplot as plt
+import importlib as plt
+import matplotlib as plt
 
 
 
@@ -29,8 +29,8 @@ def get_file(filepath):
     subfolders = np.array([images,labels])
     subfolders = subfolders.transpose()
 
-    image_list = list(subfolders[:,0])
-    label_list = list(subfolders[:,1])
+    image_list = list(subfolders[:, 0])
+    label_list = list(subfolders[:, 1])
     label_list = [int(float(i))for i in label_list]
 
     return image_list, label_list
@@ -56,36 +56,36 @@ def get_batchsize(imagelist, label_list,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY
 
 
 
-def main():
-    IMG_HEIGHT = 208
-    IMG_WIDTH = 208
-    BATCH_SIZE =2 
-    CAPACITY = 256
+# def main():
+#     IMG_HEIGHT = 208
+#     IMG_WIDTH = 208
+#     BATCH_SIZE =2 
+#     CAPACITY = 256
 
-    datapath =os.getcwd()
-    datapath +="\\TensoflowEX\\face_data"
-    imagelist,labelist = get_file(datapath)
-    image_batch,label_batch =  get_batchsize(imagelist,labelist,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY)
-    with tf.Session() as sess:
-        i = 0
-        coord = tf.train.Coordinator()
-        threads = tf.train.start_queue_runners(coord=coord)
-        try:
-            while not coord.should_stop() and i<1:
-                img, label = sess.run([image_batch,label_batch])
+#     datapath =os.getcwd()
+#     datapath +="\\face_data"
+#     imagelist,labelist = get_file(datapath)
+#     image_batch,label_batch =  get_batchsize(imagelist,labelist,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY)
+#     with tf.Session() as sess:
+#         i = 0
+#         coord = tf.train.Coordinator()
+#         threads = tf.train.start_queue_runners(coord=coord)
+#         try:
+#             while not coord.should_stop() and i<1:
+#                 img, label = sess.run([image_batch,label_batch])
 
-                for j in np.arange(BATCH_SIZE):
-                    print("label:%d"%label[j])
-                    plt.imshow(img[j,:,:,:])
-                    plt.show()
-                i+=1
-        except tf.errors.OutOfRangeError:
-            print("done!")
-        finally:
-            coord.request_stop()
-        coord.join(threads)
+#                 for j in np.arange(BATCH_SIZE):
+#                     print("label:%d"%label[j])
+#                     plt.imshow(img[j,:,:,:])
+#                     plt.show()
+#                 i+=1
+#         except tf.errors.OutOfRangeError:
+#             print("done!")
+#         finally:
+#             coord.request_stop()
+#         coord.join(threads)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 

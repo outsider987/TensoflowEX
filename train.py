@@ -20,13 +20,13 @@ def run_training():
     datapath +="\\face_data"
     logits_path =os.getcwd()
     logits_path +="\\logits"
-    imagelist,labelist =input_data.get_file(datapath)
-    image_batch,label_batch = input_data.get_batchsize(imagelist,labelist,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY)
+    train,train_label =input_data.get_file(datapath)
+    train_batch,train_label_batch = input_data.get_batchsize(train,train_label,IMG_WIDTH,IMG_HEIGHT,BATCH_SIZE,CAPACITY)
 
-    train_logits =model.inference(image_batch,BATCH_SIZE ,N_CLASSES )
-    train_loss = model.losses(train_logits,label_batch)
+    train_logits =model.inference(train_batch,BATCH_SIZE ,N_CLASSES )
+    train_loss = model.losses(train_logits,train_label_batch)
     train_op = model.trainning(train_loss,learning_rate)
-    train_acc = model.evaluation(train_logits,label_batch)
+    train_acc = model.evaluation(train_logits,train_label_batch)
 
     summary_op = tf.summary.merge_all()
     sess = tf.Session()
@@ -77,7 +77,7 @@ def get_one_image (train):
 
 def evelaut_one_image():
     train_dir = os.getcwd()
-    train_dir += "\\face_data"
+    train_dir += "..\\face_data"
     train, train_label  = input_data.get_file(train_dir)
     image_array = get_one_image(train)
 
@@ -115,4 +115,5 @@ def evelaut_one_image():
 
 
 if __name__ == "__main__":
+    # run_training()
     evelaut_one_image()
